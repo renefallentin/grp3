@@ -1,0 +1,16 @@
+:root > * {
+    --md-code-hl-number-color: white;
+    --md-code-hl-special-color: white;
+    --md-code-hl-function-color: white;
+    --md-code-hl-constant-color: white;
+    --md-code-hl-keyword-color: white;
+    --md-code-hl-string-color: white;
+    --md-code-hl-name-color: white;
+    --md-code-hl-operator-color: white;
+    --md-code-hl-punctuation-color: white;
+    --md-code-hl-comment-color: white;
+    --md-code-hl-generic-color: white;
+    --md-code-hl-variable-color: white;
+    --md-code-hl-tag-color: white;
+    --md-typeset-code-color: white;
+}
