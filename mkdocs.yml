@@ -13,7 +13,6 @@ theme:
     - navigation.top
 
 plugins:
-  - 
 
 markdown_extensions:
   - admonition
