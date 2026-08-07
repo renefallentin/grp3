@@ -1,5 +1,5 @@
 site_name: My Documentation
-site_url: https://renefallentin.github.io/mkdocs/
+site_url: https://renefallentin.github.io/grp3/
 
 nav:
   - Home: index.md
