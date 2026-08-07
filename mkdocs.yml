@@ -10,8 +10,10 @@ theme:
   font: 
     - text: merriweather sans-serif
       code: red hat mono
+
   icon:
     logo: fontawesome/solid/3
+
   palette:
     - scheme: slate
       primary: lime
