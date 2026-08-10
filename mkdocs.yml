@@ -24,8 +24,8 @@ theme:
     - navigation.sections
     - navigation.top
 
-    plugins:
-    - d2
+plugins:
+  - d2
 
 markdown_extensions:
   - admonition
