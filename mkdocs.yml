@@ -8,8 +8,8 @@ nav:
 theme:
   name: material
   font: 
-    - text: merriweather sans-serif
-      code: red hat mono
+     text: merriweather sans-serif
+     code: red hat mono
 
   icon:
     logo: fontawesome/solid/3
@@ -23,11 +23,9 @@ theme:
     - navigation.tabs
     - navigation.sections
     - navigation.top
-    - search.suggest
-    - search.highlight
 
-plugins:
-  - search
+    plugins:
+    - d2
 
 markdown_extensions:
   - admonition

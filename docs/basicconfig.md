@@ -1,3 +1,8 @@
+---
+hide:
+    - navigation
+---
+
 # Basic Configuration of hardware:
 
 === "R1"
