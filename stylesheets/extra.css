@@ -14,3 +14,33 @@
     --md-code-hl-tag-color: white;
     --md-typeset-code-color: white;
 }
+
+.md-search {
+display: none;
+}
+
+/* Main content */
+.md-content__inner {
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Header */
+.md-header__inner {
+    max-width: 740px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Top navigation tabs */
+.md-tabs .md-grid {
+    max-width: 740px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Code block background */
+.md-typeset pre > code {
+    background-color: #1E2129;
+}
