@@ -1,128 +1,489 @@
-direction: down
+direction: right
+
+# ============================================================
+# DIAGRAM
+# ============================================================
+
+style.fill: "#1E2129"
+
+
+# ============================================================
+# CLASSES
+# ============================================================
+
+classes: {
+
+  # ----------------------------------------------------------
+  # SITE / LOCATION CONTAINER
+  # ----------------------------------------------------------
+
+  site: {
+    style: {
+      fill: "#232833"
+      stroke: "#596275"
+      stroke-width: 2
+      stroke-dash: 3
+      border-radius: 12
+
+      font-color: "#E6E6F0"
+      font-size: 16
+      bold: true
+    }
+  }
+
+
+  # ----------------------------------------------------------
+  # BASE DEVICE
+  # ----------------------------------------------------------
+
+  device: {
+    shape: image
+
+    width: 80
+    height: 80
+
+    label.near: outside-bottom-center
+
+    style: {
+      font-color: "#E6E6F0"
+      font-size: 14
+      bold: true
+    }
+  }
+
+
+  # ----------------------------------------------------------
+  # DEVICE TYPES
+  # ----------------------------------------------------------
+
+  isp: {
+    icon: ../../assets/icons/network/isp.svg
+    width: 100
+    height: 60
+  }
+
+  router: {
+    icon: ../../assets/icons/network/routerbw.svg
+  }
+
+  switch-l3: {
+    icon: ../../assets/icons/network/switchl3bw.svg
+  }
+
+  switch-l2: {
+    icon: ../../assets/icons/network/switchl2bw.svg
+  }
+
+  server: {
+    icon: ../../assets/icons/network/server.svg
+  }
+
+  laptop: {
+    icon: ../../assets/icons/network/laptop.svg
+  }
+
+  client: {
+    icon: ../../assets/icons/network/client.svg
+  }
+
+
+  # ==========================================================
+  # CONNECTION CLASSES
+  # ==========================================================
+
+  # Basic connection shared by everything.
+  link: {
+    style: {
+      stroke-width: 2
+      font-size: 12
+      font-color: "#D7DAE0"
+
+      # Gives ELK-routed corners some rounding.
+      border-radius: 8
+    }
+  }
+
+
+  # ----------------------------------------------------------
+  # ANIMATED TRAFFIC FLOW
+  #
+  # ONLY use this on connections.
+  # ----------------------------------------------------------
+
+  flow: {
+    style: {
+      animated: true
+    }
+  }
+
+
+  # ----------------------------------------------------------
+  # WAN
+  # ----------------------------------------------------------
+
+  wan: {
+    style: {
+      stroke: "#C792EA"
+      font-color: "#C792EA"
+
+      stroke-width: 3
+      stroke-dash: 4
+    }
+  }
+
+
+  # ----------------------------------------------------------
+  # ROUTED L3 LINK
+  #
+  # Router <-> Layer 3 switch
+  # ----------------------------------------------------------
+
+  routed: {
+    style: {
+      stroke: "#89DDFF"
+      font-color: "#89DDFF"
+
+      stroke-width: 3
+      stroke-dash: 3
+    }
+  }
+
+
+  # ----------------------------------------------------------
+  # 802.1Q TRUNK
+  # ----------------------------------------------------------
+
+  trunk: {
+    style: {
+      stroke: "#FFCB6B"
+      font-color: "#FFCB6B"
+
+      stroke-width: 3
+      stroke-dash: 2
+    }
+  }
+
+
+  # ----------------------------------------------------------
+  # VLAN 20
+  # ----------------------------------------------------------
+
+  vlan20: {
+    style: {
+      stroke: "#C3E88D"
+      font-color: "#C3E88D"
+
+      stroke-width: 2
+    }
+  }
+
+
+  # ----------------------------------------------------------
+  # GENERIC ACCESS PORT
+  # ----------------------------------------------------------
+
+  access: {
+    style: {
+      stroke: "#BFC7D5"
+      font-color: "#BFC7D5"
+
+      stroke-width: 2
+    }
+  }
+
+
+  # ----------------------------------------------------------
+  # REDUNDANT / FAILOVER PATH
+  #
+  # Ready for later use.
+  # ----------------------------------------------------------
+
+  redundant: {
+    style: {
+      stroke: "#F78C6C"
+      font-color: "#F78C6C"
+
+      stroke-width: 3
+      stroke-dash: 6
+    }
+  }
+}
+
+
+# ============================================================
+# INTERNET
+# ============================================================
 
 internet: ISP {
-    shape: image
-    icon: ../../assets/icons/network/isp.svg
-    label: ISP
+  class: [device; isp]
+
+  tooltip: "Internet Service Provider"
 }
 
-dk1router: Router {
-    shape: image
-    label: DK1-R1
-    label.near: outside-bottom-center
-    icon: ../../assets/icons/network/routerbw.svg
+
+# ============================================================
+# DK1
+# ============================================================
+
+dk1: DK1 {
+  class: site
+
+
+  # ----------------------------------------------------------
+  # ROUTER
+  # ----------------------------------------------------------
+
+  router: DK1-R1 {
+    class: [device; router]
+
     tooltip: "Router\nManagement: 10.10.99.2\nVLANs: 10, 20, 30, 99"
-}
+    link: ../routers/dk1-r1/
+  }
 
-dk2router: Router {
-    shape: image
-    label: DK2-R1
-    label.near: outside-bottom-center
-    icon: ../../assets/icons/network/routerbw.svg
-    tooltip: "Router\nManagement: 10.10.99.2\nVLANs: 10, 20, 30, 99"
-}
 
-dk1sw1: Switch {
-    shape: image
-    label: DK1-SW-L3
-    label.near: outside-bottom-center
-    icon: ../../assets/icons/network/switchl3bw.svg
+  # ----------------------------------------------------------
+  # LAYER 3 SWITCH
+  # ----------------------------------------------------------
+
+  sw_l3: DK1-SW-L3 {
+    class: [device; switch-l3]
+
     tooltip: "Core switch\nManagement: 10.10.99.2\nVLANs: 10, 20, 30, 99"
-}
+    link: ../switches/dk1-sw-l3/
+  }
 
-dk1sw2: Switch {
-    shape: image
-    label: DK1-SW-L2
-    label.near: outside-bottom-center
-    icon: ../../assets/icons/network/switchl2bw.svg
-    tooltip: "Core switch\nManagement: 10.10.99.2\nVLANs: 10, 20, 30, 99"
-}
 
-dk2sw1: Switch {
-    shape: image
-    label: DK2-SW-L3
-    label.near: outside-bottom-center
-    icon: ../../assets/icons/network/switchl3bw.svg
-    tooltip: "Core switch\nManagement: 10.10.99.2\nVLANs: 10, 20, 30, 99"
-}
+  # ----------------------------------------------------------
+  # LAYER 2 SWITCH
+  # ----------------------------------------------------------
 
-dk2sw2: Switch {
-    shape: image
-    label: DK2-SW-L2
-    label.near: outside-bottom-center
-    icon: ../../assets/icons/network/switchl2bw.svg
-    tooltip: "Core switch\nManagement: 10.10.99.2\nVLANs: 10, 20, 30, 99"
-}
+  sw_l2: DK1-SW-L2 {
+    class: [device; switch-l2]
 
-server1: Server {
-    shape: image
-    label: DK1-SRV-01 - AD DC
-    label.near: outside-bottom-center
-    icon: ../../assets/icons/network/server.svg
+    tooltip: "Access switch\nManagement: 10.10.99.2\nVLANs: 10, 20, 30, 99"
+    link: ../switches/dk1-sw-l2/
+  }
+
+
+  # ----------------------------------------------------------
+  # SERVERS
+  # ----------------------------------------------------------
+
+  server1: DK1-SRV-01 {
+    class: [device; server]
+
     tooltip: "Domain Controller\nIP: 10.10.20.10"
-}
+    link: ../servers/dk1-srv-01/
+  }
 
-server2: Server {
-    shape: image
-    label: DK1-SRV-02 - SCCM
-    label.near: outside-bottom-center
-    icon: ../../assets/icons/network/server.svg
+  server2: DK1-SRV-02 {
+    class: [device; server]
+
     tooltip: "SCCM server\nIP: 10.10.20.11"
-}
+    link: ../servers/dk1-srv-02/
+  }
 
-server3: Server {
-    shape: image
-    label: DK1-SRV-03 - Database (SQL)
-    label.near: outside-bottom-center
-    icon: ../../assets/icons/network/server.svg
+  server3: DK1-SRV-03 {
+    class: [device; server]
+
     tooltip: "SQL Database\nIP: 10.10.20.11"
-}
+    link: ../servers/dk1-srv-03/
+  }
 
-server4: Server {
-    shape: image
-    label: DK-1SRV-04 - Backup
-    label.near: outside-bottom-center
-    icon: ../../assets/icons/network/server.svg
+  server4: DK1-SRV-04 {
+    class: [device; server]
+
     tooltip: "Backup server\nIP: 10.10.20.11"
+    link: ../servers/dk1-srv-04/
+  }
+
+
+  # ----------------------------------------------------------
+  # INTERNAL DK1 CONNECTIONS
+  # ----------------------------------------------------------
+
+  router <-> sw_l3: Routed {
+    class: [link; routed; flow]
+  }
+
+  sw_l3 <-> sw_l2: 802.1Q Trunk {
+    class: [link; trunk; flow]
+  }
+
+
+  # ----------------------------------------------------------
+  # VLAN 20 ACCESS LINKS
+  # ----------------------------------------------------------
+
+  sw_l2 <-> server1: VLAN 20 {
+    class: [link; vlan20]
+  }
+
+  sw_l2 <-> server2: VLAN 20 {
+    class: [link; vlan20]
+  }
+
+  sw_l2 <-> server3: VLAN 20 {
+    class: [link; vlan20]
+  }
+
+  sw_l2 <-> server4: VLAN 20 {
+    class: [link; vlan20]
+  }
 }
 
-server5: Server {
-    shape: image
-    label: DK2-SRV-05 - DK2 server
-    label.near: outside-bottom-center
-    icon: ../../assets/icons/network/server.svg
+
+# ============================================================
+# DK2
+# ============================================================
+
+dk2: DK2 {
+  class: site
+
+
+  # ----------------------------------------------------------
+  # ROUTER
+  # ----------------------------------------------------------
+
+  router: DK2-R1 {
+    class: [device; router]
+
+    tooltip: "Router\nManagement: 10.10.99.2\nVLANs: 10, 20, 30, 99"
+    link: ../routers/dk2-r1/
+  }
+
+
+  # ----------------------------------------------------------
+  # LAYER 3 SWITCH
+  # ----------------------------------------------------------
+
+  sw_l3: DK2-SW-L3 {
+    class: [device; switch-l3]
+
+    tooltip: "Core switch\nManagement: 10.10.99.2\nVLANs: 10, 20, 30, 99"
+    link: ../switches/dk2-sw-l3/
+  }
+
+
+  # ----------------------------------------------------------
+  # LAYER 2 SWITCH
+  # ----------------------------------------------------------
+
+  sw_l2: DK2-SW-L2 {
+    class: [device; switch-l2]
+
+    tooltip: "Access switch\nManagement: 10.10.99.2\nVLANs: 10, 20, 30, 99"
+    link: ../switches/dk2-sw-l2/
+  }
+
+
+  # ----------------------------------------------------------
+  # SERVER
+  # ----------------------------------------------------------
+
+  server5: DK2-SRV-05 {
+    class: [device; server]
+
     tooltip: "Backup server\nIP: 10.10.20.11"
-}
+    link: ../servers/dk2-srv-05/
+  }
 
-client1: Client {
-    shape: image
-    label: Client 1
-    label.near: outside-bottom-center
-    icon: ../../assets/icons/network/laptop.svg
+
+  # ----------------------------------------------------------
+  # CLIENTS
+  # ----------------------------------------------------------
+
+  client1: Client 1 {
+    class: [device; laptop]
+
     tooltip: "Client 1\nIP: 10.10.20.11"
-}
+    link: ../clients/client-1/
+  }
 
-client2: Client {
-    shape: image
-    label: Client 2
-    label.near: outside-bottom-center
-    icon: ../../assets/icons/network/client.svg
+  client2: Client 2 {
+    class: [device; client]
+
     tooltip: "Client 2\nIP: 10.10.20.11"
+    link: ../clients/client-2/
+  }
+
+
+  # ----------------------------------------------------------
+  # INTERNAL DK2 CONNECTIONS
+  # ----------------------------------------------------------
+
+  router <-> sw_l3: Routed {
+    class: [link; routed; flow]
+  }
+
+  sw_l3 <-> sw_l2: 802.1Q Trunk {
+    class: [link; trunk; flow]
+  }
+
+
+  # ----------------------------------------------------------
+  # VLAN 20 SERVER LINK
+  # ----------------------------------------------------------
+
+  sw_l2 <-> server5: VLAN 20 {
+    class: [link; vlan20]
+  }
+
+
+  # ----------------------------------------------------------
+  # CLIENT ACCESS LINKS
+  # ----------------------------------------------------------
+
+  sw_l2 <-> client1 {
+    class: [link; access]
+  }
+
+  sw_l2 <-> client2 {
+    class: [link; access]
+  }
 }
 
-internet -> dk1router
-dk1router -> dk1sw1
-dk1sw1 -> dk1sw2
 
-internet -> dk2router
-dk2router -> dk2sw1
-dk2sw1 -> dk2sw2
+# ============================================================
+# WAN CONNECTIONS
+#
+# Because routers now live inside containers, their complete
+# D2 IDs are:
+#
+#   dk1.router
+#   dk2.router
+#
+# ============================================================
 
-dk1sw2 -> server1: VLAN 20
-dk1sw2 -> server2: VLAN 20
-dk1sw2 -> server3: VLAN 20
-dk1sw2 -> server4: VLAN 20
+internet <-> dk1.router: ISP {
+  class: [link; wan; flow]
+}
 
-dk2sw2 -> server5: VLAN 20
-dk2sw2 -> client1
-dk2sw2 -> client2
+internet <-> dk2.router: ISP {
+  class: [link; wan; flow]
+}
+
+
+# ============================================================
+# OPTIONAL REDUNDANCY
+#
+# Uncomment ONLY if these links exist in the real topology.
+# ============================================================
+
+
+# ------------------------------------------------------------
+# L3 SITE-TO-SITE REDUNDANCY
+# ------------------------------------------------------------
+
+# dk1.sw_l3 <-> dk2.sw_l3: Redundant L3 {
+#   class: [link; redundant; flow]
+# }
+
+
+# ------------------------------------------------------------
+# L2 BACKUP / REDUNDANT TRUNK
+# ------------------------------------------------------------
+
+# dk1.sw_l2 <-> dk2.sw_l2: Backup Trunk {
+#   class: [link; redundant; flow]
+# }
