@@ -52,3 +52,20 @@ display: none;
 .topology-hidden-title + .d2 {
     margin-top: 0;
 }
+
+/* ==========================================================
+   REMOVE MATERIAL FOOTER
+   ========================================================== */
+
+.md-footer {
+    display: none;
+}
+
+/* ==========================================================
+   WIDE TOPOLOGY PAGES
+   Only pages containing .topology-wide-page are affected.
+   ========================================================== */
+
+.md-main__inner.md-grid:has(.topology-wide-page) {
+    max-width: 96vw;
+}

@@ -1,0 +1,629 @@
+direction: right
+
+# ============================================================
+# LOGICAL NETWORK TOPOLOGY
+#
+# Purpose:
+#   - Show routing
+#   - Show VLANs
+#   - Show subnets
+#   - Show gateways
+#   - Show logical network membership
+#
+# Physical switches/cables belong in physical-topology.d2
+# ============================================================
+
+style.fill: "#1E2129"
+
+
+# ============================================================
+# CLASSES
+# ============================================================
+
+classes: {
+
+  # ----------------------------------------------------------
+  # SITE
+  # ----------------------------------------------------------
+
+  site: {
+    style: {
+      fill: "#232833"
+      stroke: "#596275"
+
+      stroke-width: 2
+      stroke-dash: 3
+
+      border-radius: 12
+
+      font-color: "#E6E6F0"
+      font-size: 14
+      bold: true
+    }
+  }
+
+
+  # ----------------------------------------------------------
+  # LOGICAL ROUTING DEVICE
+  # ----------------------------------------------------------
+
+  routing: {
+    shape: rectangle
+
+    style: {
+      fill: "#2B303B"
+      stroke: "#89DDFF"
+
+      stroke-width: 2
+      border-radius: 10
+
+      font-color: "#E6E6F0"
+      font-size: 12
+      bold: true
+    }
+  }
+
+
+  # ----------------------------------------------------------
+  # LOGICAL NETWORK / VLAN
+  # ----------------------------------------------------------
+
+  network: {
+    style: {
+      fill: "#282D38"
+
+      stroke-width: 2
+      border-radius: 10
+
+      font-color: "#E6E6F0"
+      font-size: 13
+      bold: true
+    }
+  }
+
+
+  # ----------------------------------------------------------
+  # SUBNET INFORMATION
+  # ----------------------------------------------------------
+
+  info: {
+    shape: rectangle
+
+    style: {
+      fill: "#1E2129"
+      stroke: "#596275"
+
+      stroke-width: 1
+      border-radius: 6
+
+      font-color: "#D7DAE0"
+      font-size: 10
+    }
+  }
+
+
+  # ----------------------------------------------------------
+  # LOGICAL ENDPOINT
+  # ----------------------------------------------------------
+
+  endpoint: {
+    shape: rectangle
+
+    style: {
+      fill: "#303642"
+      stroke: "#7A8496"
+
+      stroke-width: 1
+      border-radius: 6
+
+      font-color: "#E6E6F0"
+      font-size: 10
+    }
+  }
+
+
+  # ----------------------------------------------------------
+  # ISP
+  # ----------------------------------------------------------
+
+  isp: {
+    shape: image
+
+    icon: ../../assets/icons/network/isp.svg
+
+    width: 82
+    height: 50
+
+    label.near: outside-bottom-center
+
+    style: {
+      font-color: "#E6E6F0"
+      font-size: 12
+      bold: true
+    }
+  }
+
+
+  # ==========================================================
+  # VLAN COLORS
+  # ==========================================================
+
+  vlan10: {
+    style: {
+      stroke: "#82AAFF"
+    }
+  }
+
+
+  vlan20: {
+    style: {
+      stroke: "#C3E88D"
+    }
+  }
+
+
+  vlan30: {
+    style: {
+      stroke: "#C792EA"
+    }
+  }
+
+
+  vlan99: {
+    style: {
+      stroke: "#FFCB6B"
+    }
+  }
+
+
+  # ==========================================================
+  # CONNECTIONS
+  # ==========================================================
+
+  link: {
+    style: {
+      stroke-width: 2
+      font-size: 10
+      font-color: "#D7DAE0"
+      border-radius: 8
+    }
+  }
+
+
+  flow: {
+    style: {
+      animated: true
+    }
+  }
+
+
+  wan: {
+    style: {
+      stroke: "#C792EA"
+      font-color: "#C792EA"
+
+      stroke-width: 3
+      stroke-dash: 4
+    }
+  }
+
+
+  routed: {
+    style: {
+      stroke: "#89DDFF"
+      font-color: "#89DDFF"
+
+      stroke-width: 3
+      stroke-dash: 3
+    }
+  }
+
+
+  logical-vlan: {
+    style: {
+      stroke: "#BFC7D5"
+      font-color: "#BFC7D5"
+
+      stroke-width: 2
+    }
+  }
+}
+
+
+# ============================================================
+# INTERNET
+# ============================================================
+
+internet: ISP {
+  class: isp
+
+  tooltip: "Internet Service Provider"
+}
+
+
+# ============================================================
+# DK1 LOGICAL NETWORK
+# ============================================================
+
+dk1: DK1 {
+  class: site
+
+
+  # ----------------------------------------------------------
+  # EDGE ROUTING
+  # ----------------------------------------------------------
+
+  edge: DK1-R1\nEdge Routing {
+    class: routing
+
+    tooltip: "Role: DK1 WAN / Edge Routing\nDevice: DK1-R1"
+
+    link: ../routers/dk1-r1/
+  }
+
+
+  # ----------------------------------------------------------
+  # INTER-VLAN ROUTING
+  # ----------------------------------------------------------
+
+  routing: DK1-SW-L3\nInter-VLAN Routing {
+    class: routing
+
+    tooltip: "Role: DK1 Inter-VLAN Routing\nDevice: DK1-SW-L3\nVLANs: 10, 20, 30, 99"
+
+    link: ../switches/dk1-sw-l3/
+  }
+
+
+  # ----------------------------------------------------------
+  # VLAN 10
+  # ----------------------------------------------------------
+
+  vlan10: VLAN 10 • Management {
+    class: [network; vlan10]
+
+    subnet: "Subnet\n10.10.10.0/24" {
+      class: info
+    }
+
+    gateway: "Gateway\n10.10.10.1" {
+      class: info
+    }
+
+    members: "Management endpoints\nPlaceholder" {
+      class: info
+    }
+
+    # Future:
+    # link: ../vlans/vlan-10/
+  }
+
+
+  # ----------------------------------------------------------
+  # VLAN 20
+  # ----------------------------------------------------------
+
+  vlan20: VLAN 20 • Servers / Clients {
+    class: [network; vlan20]
+
+    subnet: "Subnet\n10.10.20.0/24" {
+      class: info
+    }
+
+    gateway: "Gateway\n10.10.20.1" {
+      class: info
+    }
+
+
+    srv1: "DK1-SRV-01\nDomain Controller\n10.10.20.10" {
+      class: endpoint
+
+      tooltip: "Domain Controller\nVLAN: 20\nIP: 10.10.20.10"
+
+      link: ../servers/dk1-srv-01/
+    }
+
+
+    srv2: "DK1-SRV-02\nSCCM\n10.10.20.11" {
+      class: endpoint
+
+      tooltip: "SCCM Server\nVLAN: 20\nIP: 10.10.20.11"
+
+      link: ../servers/dk1-srv-02/
+    }
+
+
+    srv3: "DK1-SRV-03\nSQL Database\n10.10.20.11" {
+      class: endpoint
+
+      tooltip: "SQL Database\nVLAN: 20\nIP: 10.10.20.11"
+
+      link: ../servers/dk1-srv-03/
+    }
+
+
+    srv4: "DK1-SRV-04\nBackup\n10.10.20.11" {
+      class: endpoint
+
+      tooltip: "Backup Server\nVLAN: 20\nIP: 10.10.20.11"
+
+      link: ../servers/dk1-srv-04/
+    }
+
+    # Future:
+    # link: ../vlans/vlan-20/
+  }
+
+
+  # ----------------------------------------------------------
+  # VLAN 30
+  # ----------------------------------------------------------
+
+  vlan30: VLAN 30 {
+    class: [network; vlan30]
+
+    subnet: "Subnet\n10.10.30.0/24" {
+      class: info
+    }
+
+    gateway: "Gateway\n10.10.30.1" {
+      class: info
+    }
+
+    members: "Reserved / placeholder" {
+      class: info
+    }
+
+    # Future:
+    # link: ../vlans/vlan-30/
+  }
+
+
+  # ----------------------------------------------------------
+  # VLAN 99
+  # ----------------------------------------------------------
+
+  vlan99: VLAN 99 • Network Management {
+    class: [network; vlan99]
+
+    subnet: "Subnet\n10.10.99.0/24" {
+      class: info
+    }
+
+    gateway: "Gateway\n10.10.99.1" {
+      class: info
+    }
+
+    members: "Router + switches\n10.10.99.x" {
+      class: info
+    }
+
+    # Future:
+    # link: ../vlans/vlan-99/
+  }
+
+
+  # ==========================================================
+  # DK1 LOGICAL CONNECTIONS
+  # ==========================================================
+
+  edge <-> routing: Routed {
+    class: [link; routed; flow]
+
+    tooltip: "DK1 routed path between edge router and internal Layer 3 routing"
+  }
+
+
+  routing <-> vlan10.gateway: SVI • VLAN 10 {
+    class: [link; logical-vlan; flow]
+  }
+
+
+  routing <-> vlan20.gateway: SVI • VLAN 20 {
+    class: [link; logical-vlan; flow]
+  }
+
+
+  routing <-> vlan30.gateway: SVI • VLAN 30 {
+    class: [link; logical-vlan; flow]
+  }
+
+
+  routing <-> vlan99.gateway: SVI • VLAN 99 {
+    class: [link; logical-vlan; flow]
+  }
+}
+
+
+# ============================================================
+# DK2 LOGICAL NETWORK
+# ============================================================
+
+dk2: DK2 {
+  class: site
+
+
+  # ----------------------------------------------------------
+  # EDGE ROUTING
+  # ----------------------------------------------------------
+
+  edge: DK2-R1\nEdge Routing {
+    class: routing
+
+    tooltip: "Role: DK2 WAN / Edge Routing\nDevice: DK2-R1"
+
+    link: ../routers/dk2-r1/
+  }
+
+
+  # ----------------------------------------------------------
+  # INTER-VLAN ROUTING
+  # ----------------------------------------------------------
+
+  routing: DK2-SW-L3\nInter-VLAN Routing {
+    class: routing
+
+    tooltip: "Role: DK2 Inter-VLAN Routing\nDevice: DK2-SW-L3\nVLANs: 10, 20, 30, 99"
+
+    link: ../switches/dk2-sw-l3/
+  }
+
+
+  # ----------------------------------------------------------
+  # VLAN 10
+  # ----------------------------------------------------------
+
+  vlan10: VLAN 10 • Management {
+    class: [network; vlan10]
+
+    subnet: "Subnet\n10.10.10.0/24" {
+      class: info
+    }
+
+    gateway: "Gateway\n10.10.10.1" {
+      class: info
+    }
+
+    members: "Management endpoints\nPlaceholder" {
+      class: info
+    }
+  }
+
+
+  # ----------------------------------------------------------
+  # VLAN 20
+  #
+  # Clients are included here because their current placeholder
+  # addresses are in 10.10.20.0/24.
+  # ----------------------------------------------------------
+
+  vlan20: VLAN 20 • Servers / Clients {
+    class: [network; vlan20]
+
+    subnet: "Subnet\n10.10.20.0/24" {
+      class: info
+    }
+
+    gateway: "Gateway\n10.10.20.1" {
+      class: info
+    }
+
+
+    srv5: "DK2-SRV-05\nBackup\n10.10.20.11" {
+      class: endpoint
+
+      tooltip: "Backup Server\nVLAN: 20\nIP: 10.10.20.11"
+
+      link: ../servers/dk2-srv-05/
+    }
+
+
+    client1: "Client 1\n10.10.20.11" {
+      class: endpoint
+
+      tooltip: "Client workstation\nVLAN: 20\nIP: 10.10.20.11"
+
+      link: ../clients/client-1/
+    }
+
+
+    client2: "Client 2\n10.10.20.11" {
+      class: endpoint
+
+      tooltip: "Client workstation\nVLAN: 20\nIP: 10.10.20.11"
+
+      link: ../clients/client-2/
+    }
+  }
+
+
+  # ----------------------------------------------------------
+  # VLAN 30
+  # ----------------------------------------------------------
+
+  vlan30: VLAN 30 {
+    class: [network; vlan30]
+
+    subnet: "Subnet\n10.10.30.0/24" {
+      class: info
+    }
+
+    gateway: "Gateway\n10.10.30.1" {
+      class: info
+    }
+
+    members: "Reserved / placeholder" {
+      class: info
+    }
+  }
+
+
+  # ----------------------------------------------------------
+  # VLAN 99
+  # ----------------------------------------------------------
+
+  vlan99: VLAN 99 • Network Management {
+    class: [network; vlan99]
+
+    subnet: "Subnet\n10.10.99.0/24" {
+      class: info
+    }
+
+    gateway: "Gateway\n10.10.99.1" {
+      class: info
+    }
+
+    members: "Router + switches\n10.10.99.x" {
+      class: info
+    }
+  }
+
+
+  # ==========================================================
+  # DK2 LOGICAL CONNECTIONS
+  # ==========================================================
+
+  edge <-> routing: Routed {
+    class: [link; routed; flow]
+
+    tooltip: "DK2 routed path between edge router and internal Layer 3 routing"
+  }
+
+
+  routing <-> vlan10.gateway: SVI • VLAN 10 {
+    class: [link; logical-vlan; flow]
+  }
+
+
+  routing <-> vlan20.gateway: SVI • VLAN 20 {
+    class: [link; logical-vlan; flow]
+  }
+
+
+  routing <-> vlan30.gateway: SVI • VLAN 30 {
+    class: [link; logical-vlan; flow]
+  }
+
+
+  routing <-> vlan99.gateway: SVI • VLAN 99 {
+    class: [link; logical-vlan; flow]
+  }
+}
+
+
+# ============================================================
+# WAN / INTERNET ROUTING
+# ============================================================
+
+internet <-> dk1.edge: WAN {
+  class: [link; wan; flow]
+
+  tooltip: "DK1 Internet path"
+}
+
+
+internet <-> dk2.edge: WAN {
+  class: [link; wan; flow]
+
+  tooltip: "DK2 Internet path"
+}
