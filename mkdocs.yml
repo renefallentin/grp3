@@ -4,6 +4,8 @@ site_url: https://renefallentin.github.io/grp3/
 nav:
   - Home: index.md
   - Basic Configuration: basicconfig.md
+  - Network:
+    - Topology: network/topology.md
 
 theme:
   name: material
@@ -25,7 +27,9 @@ theme:
     - navigation.top
 
 plugins:
-  - d2
+  - d2:
+      layout: elk
+      theme: 200
 
 markdown_extensions:
   - admonition
