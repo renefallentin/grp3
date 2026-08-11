@@ -1,0 +1,128 @@
+direction: down
+
+internet: ISP {
+    shape: image
+    icon: ../../assets/icons/network/isp.svg
+    label: ISP
+}
+
+dk1router: Router {
+    shape: image
+    label: DK1-R1
+    label.near: outside-bottom-center
+    icon: ../../assets/icons/network/routerbw.svg
+    tooltip: "Router\nManagement: 10.10.99.2\nVLANs: 10, 20, 30, 99"
+}
+
+dk2router: Router {
+    shape: image
+    label: DK2-R1
+    label.near: outside-bottom-center
+    icon: ../../assets/icons/network/routerbw.svg
+    tooltip: "Router\nManagement: 10.10.99.2\nVLANs: 10, 20, 30, 99"
+}
+
+dk1sw1: Switch {
+    shape: image
+    label: DK1-SW-L3
+    label.near: outside-bottom-center
+    icon: ../../assets/icons/network/switchl3bw.svg
+    tooltip: "Core switch\nManagement: 10.10.99.2\nVLANs: 10, 20, 30, 99"
+}
+
+dk1sw2: Switch {
+    shape: image
+    label: DK1-SW-L2
+    label.near: outside-bottom-center
+    icon: ../../assets/icons/network/switchl2bw.svg
+    tooltip: "Core switch\nManagement: 10.10.99.2\nVLANs: 10, 20, 30, 99"
+}
+
+dk2sw1: Switch {
+    shape: image
+    label: DK2-SW-L3
+    label.near: outside-bottom-center
+    icon: ../../assets/icons/network/switchl3bw.svg
+    tooltip: "Core switch\nManagement: 10.10.99.2\nVLANs: 10, 20, 30, 99"
+}
+
+dk2sw2: Switch {
+    shape: image
+    label: DK2-SW-L2
+    label.near: outside-bottom-center
+    icon: ../../assets/icons/network/switchl2bw.svg
+    tooltip: "Core switch\nManagement: 10.10.99.2\nVLANs: 10, 20, 30, 99"
+}
+
+server1: Server {
+    shape: image
+    label: DK1-SRV-01 - AD DC
+    label.near: outside-bottom-center
+    icon: ../../assets/icons/network/server.svg
+    tooltip: "Domain Controller\nIP: 10.10.20.10"
+}
+
+server2: Server {
+    shape: image
+    label: DK1-SRV-02 - SCCM
+    label.near: outside-bottom-center
+    icon: ../../assets/icons/network/server.svg
+    tooltip: "SCCM server\nIP: 10.10.20.11"
+}
+
+server3: Server {
+    shape: image
+    label: DK1-SRV-03 - Database (SQL)
+    label.near: outside-bottom-center
+    icon: ../../assets/icons/network/server.svg
+    tooltip: "SQL Database\nIP: 10.10.20.11"
+}
+
+server4: Server {
+    shape: image
+    label: DK-1SRV-04 - Backup
+    label.near: outside-bottom-center
+    icon: ../../assets/icons/network/server.svg
+    tooltip: "Backup server\nIP: 10.10.20.11"
+}
+
+server5: Server {
+    shape: image
+    label: DK2-SRV-05 - DK2 server
+    label.near: outside-bottom-center
+    icon: ../../assets/icons/network/server.svg
+    tooltip: "Backup server\nIP: 10.10.20.11"
+}
+
+client1: Client {
+    shape: image
+    label: Client 1
+    label.near: outside-bottom-center
+    icon: ../../assets/icons/network/laptop.svg
+    tooltip: "Client 1\nIP: 10.10.20.11"
+}
+
+client2: Client {
+    shape: image
+    label: Client 2
+    label.near: outside-bottom-center
+    icon: ../../assets/icons/network/client.svg
+    tooltip: "Client 2\nIP: 10.10.20.11"
+}
+
+internet -> dk1router
+dk1router -> dk1sw1
+dk1sw1 -> dk1sw2
+
+internet -> dk2router
+dk2router -> dk2sw1
+dk2sw1 -> dk2sw2
+
+dk1sw2 -> server1: VLAN 20
+dk1sw2 -> server2: VLAN 20
+dk1sw2 -> server3: VLAN 20
+dk1sw2 -> server4: VLAN 20
+
+dk2sw2 -> server5: VLAN 20
+dk2sw2 -> client1
+dk2sw2 -> client2
