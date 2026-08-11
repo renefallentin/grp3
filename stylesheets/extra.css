@@ -44,3 +44,11 @@ display: none;
 .md-typeset pre > code {
     background-color: #1E2129;
 }
+
+.topology-hidden-title {
+    display: none;
+}
+
+.topology-hidden-title + .d2 {
+    margin-top: 0;
+}

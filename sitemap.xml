@@ -12,4 +12,56 @@
          <loc>https://renefallentin.github.io/grp3/network/topology/</loc>
          <lastmod>2026-08-11</lastmod>
     </url>
+    <url>
+         <loc>https://renefallentin.github.io/grp3/network/clients/client-1/</loc>
+         <lastmod>2026-08-11</lastmod>
+    </url>
+    <url>
+         <loc>https://renefallentin.github.io/grp3/network/clients/client-2/</loc>
+         <lastmod>2026-08-11</lastmod>
+    </url>
+    <url>
+         <loc>https://renefallentin.github.io/grp3/network/routers/dk1-r1/</loc>
+         <lastmod>2026-08-11</lastmod>
+    </url>
+    <url>
+         <loc>https://renefallentin.github.io/grp3/network/routers/dk2-r1/</loc>
+         <lastmod>2026-08-11</lastmod>
+    </url>
+    <url>
+         <loc>https://renefallentin.github.io/grp3/network/servers/dk1-srv-01/</loc>
+         <lastmod>2026-08-11</lastmod>
+    </url>
+    <url>
+         <loc>https://renefallentin.github.io/grp3/network/servers/dk1-srv-02/</loc>
+         <lastmod>2026-08-11</lastmod>
+    </url>
+    <url>
+         <loc>https://renefallentin.github.io/grp3/network/servers/dk1-srv-03/</loc>
+         <lastmod>2026-08-11</lastmod>
+    </url>
+    <url>
+         <loc>https://renefallentin.github.io/grp3/network/servers/dk1-srv-04/</loc>
+         <lastmod>2026-08-11</lastmod>
+    </url>
+    <url>
+         <loc>https://renefallentin.github.io/grp3/network/servers/dk2-srv-05/</loc>
+         <lastmod>2026-08-11</lastmod>
+    </url>
+    <url>
+         <loc>https://renefallentin.github.io/grp3/network/switches/dk1-sw-l2/</loc>
+         <lastmod>2026-08-11</lastmod>
+    </url>
+    <url>
+         <loc>https://renefallentin.github.io/grp3/network/switches/dk1-sw-l3/</loc>
+         <lastmod>2026-08-11</lastmod>
+    </url>
+    <url>
+         <loc>https://renefallentin.github.io/grp3/network/switches/dk2-sw-l2/</loc>
+         <lastmod>2026-08-11</lastmod>
+    </url>
+    <url>
+         <loc>https://renefallentin.github.io/grp3/network/switches/dk2-sw-l3/</loc>
+         <lastmod>2026-08-11</lastmod>
+    </url>
 </urlset>
