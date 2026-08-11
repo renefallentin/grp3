@@ -6,6 +6,9 @@ nav:
   - Basic Configuration: basicconfig.md
   - Network:
     - Topology: network/topology.md
+    - Physical Topology: network/physical-topology.md
+    - Logical Topology: network/logical-topology.md
+    
     - Routers:
       - DK1-R1: network/routers/dk1-r1.md
       - DK2-R1: network/routers/dk2-r1.md
@@ -38,8 +41,8 @@ theme:
 
   palette:
     - scheme: slate
-      primary: lime
-      accent: deep-purple
+      primary: yellow
+      accent: yellow
 
   features:
     - navigation.tabs
@@ -63,3 +66,6 @@ markdown_extensions:
 
 extra_css:
   - stylesheets/extra.css
+
+extra:
+  generator: false
