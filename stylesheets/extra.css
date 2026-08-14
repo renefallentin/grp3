@@ -21,7 +21,7 @@ display: none;
 
 /* Main content */
 .md-content__inner {
-    max-width: 700px;
+    width: 740px;
     margin-left: auto;
     margin-right: auto;
 }
@@ -68,4 +68,122 @@ display: none;
 
 .md-main__inner.md-grid:has(.topology-wide-page) {
     max-width: 96vw;
+}
+
+/* ==========================================================
+   ACTIVE DIRECTORY OU TREE
+   ========================================================== */
+
+.ou-tree {
+    background: #1E2129;
+    color: #E6E6F0;
+
+    border: 1px solid #3B4252;
+    border-radius: 10px;
+
+    padding: 1.25rem 1.5rem;
+    margin: 1rem 0;
+
+    font-family: var(--md-code-font-family);
+    font-size: 0.85rem;
+    line-height: 1.75;
+
+    /* Preserve the ASCII-style tree structure */
+    white-space: pre;
+    overflow-x: auto;
+}
+
+
+/* Material SVG icons */
+.ou-tree .ou-icon {
+    display: inline-flex;
+
+    width: 1.05rem;
+    height: 1.05rem;
+
+    vertical-align: -0.17rem;
+    margin-right: 0.2rem;
+}
+
+
+/* Make the generated SVG itself obey the size */
+.ou-tree .ou-icon svg {
+    width: 1.05rem;
+    height: 1.05rem;
+}
+
+
+/* Domain/root OU */
+.ou-root {
+    color: #C3E88D;
+    font-weight: 700;
+}
+
+
+/* Main structural OUs */
+.ou-main {
+    color: #89DDFF;
+    font-weight: 700;
+}
+
+
+/* Location OUs */
+.ou-location {
+    color: #FFCB6B;
+    font-weight: 600;
+}
+
+/* ==========================================================
+   INTERACTIVE NETWORK TOPOLOGY
+   ========================================================== */
+
+.network-topology-viewer .d2 {
+    position: relative;
+
+    width: 100%;
+    height: 620px;
+
+    overflow: hidden;
+
+    border: 1px solid #1E2129;
+    border-radius: 10px;
+
+    background: #1E2129;
+}
+
+
+/* D2 theme wrappers */
+.network-topology-viewer .d2-light,
+.network-topology-viewer .d2-dark {
+    width: 100%;
+    height: 100%;
+
+    background: #1E2129;
+}
+
+
+/* SVG */
+.network-topology-viewer .d2 svg {
+    display: block;
+
+    width: 100% !important;
+    height: 100% !important;
+
+    max-width: none !important;
+    max-height: none !important;
+
+    background: #1E2129;
+
+    cursor: grab;
+
+    user-select: none;
+    -webkit-user-select: none;
+
+    touch-action: none;
+}
+
+
+/* Dragging */
+.network-topology-viewer .d2 svg.topology-dragging {
+    cursor: grabbing;
 }
