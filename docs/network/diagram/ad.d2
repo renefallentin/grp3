@@ -1,0 +1,315 @@
+direction: down
+
+style.fill: "#1E2129"
+
+classes: {
+
+  ou: {
+    style: {
+      fill: "#282D38"
+      stroke: "#596275"
+      stroke-width: 2
+      border-radius: 8
+
+      font-color: "#E6E6F0"
+      font-size: 12
+      bold: true
+    }
+  }
+
+  location: {
+    style: {
+      fill: "#232833"
+      stroke: "#89DDFF"
+      stroke-width: 2
+      border-radius: 8
+
+      font-color: "#E6E6F0"
+      font-size: 11
+      bold: true
+    }
+  }
+
+  department: {
+    style: {
+      fill: "#1E2129"
+      stroke: "#7A8496"
+      stroke-width: 1
+      border-radius: 6
+
+      font-color: "#D7DAE0"
+      font-size: 10
+    }
+  }
+
+  structure-link: {
+    style: {
+      stroke: "#7A8496"
+      stroke-width: 2
+      border-radius: 6
+    }
+  }
+}
+
+
+# ============================================================
+# ROOT
+# ============================================================
+
+root: OU=Norddiktech {
+  class: ou
+}
+
+
+# ============================================================
+# USERS
+# ============================================================
+
+users: OU=Users {
+  class: ou
+}
+
+root -> users {
+  class: structure-link
+}
+
+
+# ------------------------------------------------------------
+# DK1 USERS
+# ------------------------------------------------------------
+
+users_dk1: OU=Location-DK1 {
+  class: location
+}
+
+users -> users_dk1 {
+  class: structure-link
+}
+
+
+dk1_sales: OU=Salg {
+  class: department
+}
+
+dk1_dev: OU=Udvikling {
+  class: department
+}
+
+dk1_hr: OU=HR {
+  class: department
+}
+
+dk1_finance: OU=Finans {
+  class: department
+}
+
+dk1_management: OU=Ledelse {
+  class: department
+}
+
+dk1_it: OU=IT {
+  class: department
+}
+
+dk1_customer: OU=Kundeservice {
+  class: department
+}
+
+
+users_dk1 -> dk1_sales {
+  class: structure-link
+}
+
+users_dk1 -> dk1_dev {
+  class: structure-link
+}
+
+users_dk1 -> dk1_hr {
+  class: structure-link
+}
+
+users_dk1 -> dk1_finance {
+  class: structure-link
+}
+
+users_dk1 -> dk1_management {
+  class: structure-link
+}
+
+users_dk1 -> dk1_it {
+  class: structure-link
+}
+
+users_dk1 -> dk1_customer {
+  class: structure-link
+}
+
+
+# ------------------------------------------------------------
+# DK2 USERS
+# ------------------------------------------------------------
+
+users_dk2: OU=Location-DK2 {
+  class: location
+}
+
+users -> users_dk2 {
+  class: structure-link
+}
+
+
+dk2_sales: OU=Salg {
+  class: department
+}
+
+dk2_dev: OU=Udvikling {
+  class: department
+}
+
+dk2_hr: OU=HR {
+  class: department
+}
+
+dk2_finance: OU=Finans {
+  class: department
+}
+
+dk2_management: OU=Ledelse {
+  class: department
+}
+
+dk2_it: OU=IT {
+  class: department
+}
+
+dk2_customer: OU=Kundeservice {
+  class: department
+}
+
+
+users_dk2 -> dk2_sales {
+  class: structure-link
+}
+
+users_dk2 -> dk2_dev {
+  class: structure-link
+}
+
+users_dk2 -> dk2_hr {
+  class: structure-link
+}
+
+users_dk2 -> dk2_finance {
+  class: structure-link
+}
+
+users_dk2 -> dk2_management {
+  class: structure-link
+}
+
+users_dk2 -> dk2_it {
+  class: structure-link
+}
+
+users_dk2 -> dk2_customer {
+  class: structure-link
+}
+
+
+# ============================================================
+# COMPUTERS
+# ============================================================
+
+computers: OU=Computers {
+  class: ou
+}
+
+root -> computers {
+  class: structure-link
+}
+
+
+computers_dk1: OU=Location-DK1 {
+  class: location
+}
+
+computers_dk2: OU=Location-DK2 {
+  class: location
+}
+
+deploy: OU=Deploy {
+  class: department
+}
+
+
+computers -> computers_dk1 {
+  class: structure-link
+}
+
+computers -> computers_dk2 {
+  class: structure-link
+}
+
+computers -> deploy {
+  class: structure-link
+}
+
+
+# ============================================================
+# ADMIN ACCOUNTS
+# ============================================================
+
+admin: OU=Admin-Accounts {
+  class: ou
+}
+
+root -> admin {
+  class: structure-link
+}
+
+
+admin_it: OU=IT {
+  class: department
+}
+
+admin -> admin_it {
+  class: structure-link
+}
+
+
+# ============================================================
+# OTHER TOP-LEVEL OUs
+# ============================================================
+
+servers: OU=Servers {
+  class: ou
+}
+
+groups: OU=Groups {
+  class: ou
+}
+
+service_accounts: OU=Service-Accounts {
+  class: ou
+}
+
+disabled: OU=Disabled-Objects {
+  class: ou
+}
+
+
+root -> servers {
+  class: structure-link
+}
+
+root -> groups {
+  class: structure-link
+}
+
+root -> service_accounts {
+  class: structure-link
+}
+
+root -> disabled {
+  class: structure-link
+}

@@ -6,29 +6,24 @@ nav:
   - Basic Configuration: basicconfig.md
   - Network:
     - Topology: network/topology.md
-    - Physical Topology: network/physical-topology.md
-    - Logical Topology: network/logical-topology.md
-    
     - Routers:
-      - DK1-R1: network/routers/dk1-r1.md
-      - DK2-R1: network/routers/dk2-r1.md
-
+      - R1-DK1: network/routers/dk1-r1.md
+      - R1-DK2: network/routers/dk2-r1.md
     - Switches:
-      - DK1-SW-L3: network/switches/dk1-sw-l3.md
-      - DK1-SW-L2: network/switches/dk1-sw-l2.md
-      - DK2-SW-L3: network/switches/dk2-sw-l3.md
-      - DK2-SW-L2: network/switches/dk2-sw-l2.md
-
+      - SW-L3-DK1: network/switches/dk1-sw-l3.md
+      - SW-L2-DK1: network/switches/dk1-sw-l2.md
+      - SW-L3-DK2: network/switches/dk2-sw-l3.md
+      - SW-L2-DK2: network/switches/dk2-sw-l2.md
     - Servers:
-      - DK1-SRV-01: network/servers/dk1-srv-01.md
-      - DK1-SRV-02: network/servers/dk1-srv-02.md
-      - DK1-SRV-03: network/servers/dk1-srv-03.md
-      - DK1-SRV-04: network/servers/dk1-srv-04.md
-      - DK2-SRV-05: network/servers/dk2-srv-05.md
-
+      - SRV-01-DK1: network/servers/dk1-srv-01.md
+      - SRV-02-DK1: network/servers/dk1-srv-02.md
+      - SRV-03-DK1: network/servers/dk1-srv-03.md
+      - SRV-04-DK1: network/servers/dk1-srv-04.md
+      - SRV-05-DK2: network/servers/dk2-srv-05.md
     - Clients:
       - Client 1: network/clients/client-1.md
       - Client 2: network/clients/client-2.md
+  - Active Directory: ad.md
 
 theme:
   name: material
@@ -63,9 +58,16 @@ markdown_extensions:
   - pymdownx.superfences
   - pymdownx.tabbed:
       alternate_style: true
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
 
 extra_css:
   - stylesheets/extra.css
+
+extra_javascript:
+  - js/extra.js
+  - js/topology-zoom.js
 
 extra:
   generator: false

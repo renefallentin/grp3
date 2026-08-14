@@ -6,7 +6,6 @@ direction: right
 
 style.fill: "#1E2129"
 
-
 # ============================================================
 # CLASSES
 # ============================================================
@@ -233,7 +232,7 @@ dk1: DK1 {
   # ROUTER
   # ----------------------------------------------------------
 
-  router: DK1-R1 {
+  router: R1-DK1 {
     class: [device; router]
 
     tooltip: "Router\nManagement: 10.10.99.2\nVLANs: 10, 20, 30, 99"
@@ -245,7 +244,7 @@ dk1: DK1 {
   # LAYER 3 SWITCH
   # ----------------------------------------------------------
 
-  sw_l3: DK1-SW-L3 {
+  sw_l3: SW-L3-DK1 {
     class: [device; switch-l3]
 
     tooltip: "Core switch\nManagement: 10.10.99.2\nVLANs: 10, 20, 30, 99"
@@ -257,7 +256,7 @@ dk1: DK1 {
   # LAYER 2 SWITCH
   # ----------------------------------------------------------
 
-  sw_l2: DK1-SW-L2 {
+  sw_l2: SW-L2-DK1 {
     class: [device; switch-l2]
 
     tooltip: "Access switch\nManagement: 10.10.99.2\nVLANs: 10, 20, 30, 99"
@@ -269,28 +268,28 @@ dk1: DK1 {
   # SERVERS
   # ----------------------------------------------------------
 
-  server1: DK1-SRV-01 {
+  server1: SRV-01-DK1 {
     class: [device; server]
 
     tooltip: "Domain Controller\nIP: 10.10.20.10"
     link: ../servers/dk1-srv-01/
   }
 
-  server2: DK1-SRV-02 {
+  server2: SRV-02-DK1 {
     class: [device; server]
 
     tooltip: "SCCM server\nIP: 10.10.20.11"
     link: ../servers/dk1-srv-02/
   }
 
-  server3: DK1-SRV-03 {
+  server3: SRV-03-DK1 {
     class: [device; server]
 
     tooltip: "SQL Database\nIP: 10.10.20.11"
     link: ../servers/dk1-srv-03/
   }
 
-  server4: DK1-SRV-04 {
+  server4: SRV-04-DK1 {
     class: [device; server]
 
     tooltip: "Backup server\nIP: 10.10.20.11"
@@ -345,7 +344,7 @@ dk2: DK2 {
   # ROUTER
   # ----------------------------------------------------------
 
-  router: DK2-R1 {
+  router: R1-DK2 {
     class: [device; router]
 
     tooltip: "Router\nManagement: 10.10.99.2\nVLANs: 10, 20, 30, 99"
@@ -357,7 +356,7 @@ dk2: DK2 {
   # LAYER 3 SWITCH
   # ----------------------------------------------------------
 
-  sw_l3: DK2-SW-L3 {
+  sw_l3: SW-L3-DK2 {
     class: [device; switch-l3]
 
     tooltip: "Core switch\nManagement: 10.10.99.2\nVLANs: 10, 20, 30, 99"
@@ -369,7 +368,7 @@ dk2: DK2 {
   # LAYER 2 SWITCH
   # ----------------------------------------------------------
 
-  sw_l2: DK2-SW-L2 {
+  sw_l2: SW-L2-DK2 {
     class: [device; switch-l2]
 
     tooltip: "Access switch\nManagement: 10.10.99.2\nVLANs: 10, 20, 30, 99"
@@ -381,7 +380,7 @@ dk2: DK2 {
   # SERVER
   # ----------------------------------------------------------
 
-  server5: DK2-SRV-05 {
+  server5: SRV-05-DK2 {
     class: [device; server]
 
     tooltip: "Backup server\nIP: 10.10.20.11"
