@@ -489,31 +489,31 @@ function initializeTopologyRedundancy() {
                 dk1Box.width / 2;
 
 
+            /*
+            * Start the animated redundancy paths just slightly
+            * below the bottom edge of DK1.
+            */
             const startY =
                 dk1Box.y +
-                dk1Box.height;
+                dk1Box.height +
+                8;
 
-
-            // ------------------------------------------------------------
-            // DK2:
-            // Top-center of L3 switch
-            // ------------------------------------------------------------
 
             const endX =
                 dk2Box.x +
                 dk2Box.width / 2;
 
-                /*
-            * Stop the redundancy flow slightly above DK2
-            * so the spacing visually matches DK1.
+
+            /*
+            * Stop slightly above DK2.
             */
             const bottomGap =
-                10;
+                8;
+
 
             const endY =
                 dk2Box.y -
                 bottomGap;
-
 
             // ------------------------------------------------------------
             // Main connection geometry
