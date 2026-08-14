@@ -508,7 +508,7 @@ function initializeTopologyRedundancy() {
             * Stop slightly above DK2.
             */
             const bottomGap =
-                8;
+                10;
 
 
             const endY =
@@ -723,7 +723,7 @@ function initializeTopologyRedundancy() {
 
             forwardPath.setAttribute(
                 "transform",
-                "translate(-15 0)"
+                "translate(-8 0)"
             );
 
 
@@ -759,7 +759,7 @@ function initializeTopologyRedundancy() {
 
             reversePath.setAttribute(
                 "transform",
-                "translate(15 0)"
+                "translate(8 0)"
             );
 
 
@@ -920,9 +920,19 @@ function initializeTopologyRedundancy() {
                         }
                     );
 
-
                 // --------------------------------------------------------
-                // COPY D2'S ACTUAL DASH APPEARANCE
+                // COPY D2'S ACTUAL STROKE APPEARANCE
+                //
+                // This makes the custom redundancy paths behave visually
+                // like native D2 animated connections when zooming.
+                //
+                // We copy:
+                //
+                // - stroke width
+                // - dash pattern
+                // - line cap
+                // - line join
+                // - vector effect
                 // --------------------------------------------------------
 
                 const referenceStyle =
@@ -936,15 +946,54 @@ function initializeTopologyRedundancy() {
                         .strokeDasharray;
 
 
+                const nativeStrokeWidth =
+                    referenceStyle
+                        .strokeWidth;
+
+
                 const nativeLineCap =
                     referenceStyle
                         .strokeLinecap;
 
 
+                const nativeLineJoin =
+                    referenceStyle
+                        .strokeLinejoin;
+
+
+                const nativeVectorEffect =
+                    referenceStyle
+                        .vectorEffect;
+
+
+                // --------------------------------------------------------
+                // STROKE WIDTH
+                // --------------------------------------------------------
+
+                if (
+                    nativeStrokeWidth
+                ) {
+
+                    forwardPath.style
+                        .strokeWidth =
+                        nativeStrokeWidth;
+
+
+                    reversePath.style
+                        .strokeWidth =
+                        nativeStrokeWidth;
+
+                }
+
+
+                // --------------------------------------------------------
+                // DASH PATTERN
+                // --------------------------------------------------------
+
                 if (
                     nativeDashArray &&
                     nativeDashArray !==
-                    "none"
+                        "none"
                 ) {
 
                     forwardPath.style
@@ -958,6 +1007,10 @@ function initializeTopologyRedundancy() {
 
                 }
 
+
+                // --------------------------------------------------------
+                // LINE CAP
+                // --------------------------------------------------------
 
                 if (
                     nativeLineCap
@@ -974,6 +1027,50 @@ function initializeTopologyRedundancy() {
 
                 }
 
+
+                // --------------------------------------------------------
+                // LINE JOIN
+                // --------------------------------------------------------
+
+                if (
+                    nativeLineJoin
+                ) {
+
+                    forwardPath.style
+                        .strokeLinejoin =
+                        nativeLineJoin;
+
+
+                    reversePath.style
+                        .strokeLinejoin =
+                        nativeLineJoin;
+
+                }
+
+
+                // --------------------------------------------------------
+                // VECTOR EFFECT
+                //
+                // This is important for zoom behaviour.
+                //
+                // Instead of forcing our own non-scaling behaviour,
+                // use whatever D2 itself uses.
+                // --------------------------------------------------------
+
+                if (
+                    nativeVectorEffect
+                ) {
+
+                    forwardPath.style
+                        .vectorEffect =
+                        nativeVectorEffect;
+
+
+                    reversePath.style
+                        .vectorEffect =
+                        nativeVectorEffect;
+
+                }
 
                 // --------------------------------------------------------
                 // COPY D2'S REAL DURATION
