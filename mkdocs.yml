@@ -66,8 +66,8 @@ extra_css:
   - stylesheets/extra.css
 
 extra_javascript:
-  - js/extra.js
   - js/topology-zoom.js
+  - js/topology-redundancy.js
 
 extra:
   generator: false
