@@ -188,129 +188,6 @@ display: none;
     cursor: grabbing;
 }
 
-/* ==========================================================
-   L3 REDUNDANCY OVERLAY
-   ========================================================== */
-
-
-/* ----------------------------------------------------------
-   BASE REDUNDANCY CONNECTION
-
-   This is the permanent dashed link behind the animated
-   traffic flows.
-   ---------------------------------------------------------- */
-
-.topology-redundancy-base {
-    fill: none;
-
-    stroke: #F78C6C;
-    stroke-width: 3;
-
-    stroke-dasharray: 8 5;
-
-    opacity: 0.75;
-
-    vector-effect: non-scaling-stroke;
-}
-
-
-/* ----------------------------------------------------------
-   BIDIRECTIONAL ARROWHEADS
-   ---------------------------------------------------------- */
-
-.topology-redundancy-arrow {
-    fill: #F78C6C;
-    stroke: none;
-}
-
-
-/* ----------------------------------------------------------
-   ANIMATED TRAFFIC FLOW
-
-   Two copies of the same path are used:
-
-   left lane  = DK1 -> DK2
-   right lane = DK2 -> DK1
-   ---------------------------------------------------------- */
-
-.topology-redundancy-flow {
-    fill: none;
-
-    stroke: #FFD0C4;
-    stroke-width: 2.5;
-
-    /*
-     * Small packet-like segments with a relatively
-     * large gap between them.
-     */
-    stroke-dasharray: 5 20;
-
-    stroke-linecap: round;
-
-    vector-effect: non-scaling-stroke;
-}
-
-
-/* ----------------------------------------------------------
-   DK1 -> DK2
-   ---------------------------------------------------------- */
-
-.topology-redundancy-forward {
-    animation:
-        topology-redundancy-forward
-        2s
-        linear
-        infinite;
-}
-
-
-/* ----------------------------------------------------------
-   DK2 -> DK1
-   ---------------------------------------------------------- */
-
-.topology-redundancy-reverse {
-    animation:
-        topology-redundancy-reverse
-        2s
-        linear
-        infinite;
-}
-
-
-/* ----------------------------------------------------------
-   FORWARD ANIMATION
-   ---------------------------------------------------------- */
-
-@keyframes topology-redundancy-forward {
-
-    from {
-        stroke-dashoffset: 0;
-    }
-
-    to {
-        stroke-dashoffset: -25;
-    }
-
-}
-
-
-/* ----------------------------------------------------------
-   REVERSE ANIMATION
-   ---------------------------------------------------------- */
-
-@keyframes topology-redundancy-reverse {
-
-    from {
-        stroke-dashoffset: 0;
-    }
-
-    to {
-        stroke-dashoffset: 25;
-    }
-
-}
-
-
 /* ----------------------------------------------------------
    CONNECTION LABEL
    ---------------------------------------------------------- */
@@ -339,78 +216,116 @@ display: none;
     stroke-linejoin: round;
 }
 
+/* ==========================================================
+   NETWORK FLOW SPEED
+
+   ONE MASTER CONTROL FOR:
+
+   - Native D2 animated connections
+   - Custom L3 redundancy connection
+
+   1.00 = normal D2 speed
+   0.75 = 75% speed
+   0.50 = half speed
+   0.25 = quarter speed
+   ========================================================== */
+
+:root {
+    --network-flow-speed: 0.30;
+}
+
+
+/* ==========================================================
+   L3 REDUNDANCY OVERLAY
+   ========================================================== */
+
+
+/* ----------------------------------------------------------
+   BASE REDUNDANCY CONNECTION
+   ---------------------------------------------------------- */
+
+.topology-redundancy-base {
+    fill: none;
+
+    stroke: #F78C6C;
+    stroke-width: 3;
+
+    stroke: transparent;
+
+    vector-effect:
+        non-scaling-stroke;
+}
+
+
+/* ----------------------------------------------------------
+   BIDIRECTIONAL ARROWHEADS
+   ---------------------------------------------------------- */
+
+.topology-redundancy-arrow {
+    display: none;
+}
+
+
+/* ----------------------------------------------------------
+   ANIMATED FLOWS
+
+   IMPORTANT:
+
+   There is deliberately NO CSS animation here anymore.
+
+   topology-redundancy.js copies the actual animation from
+   one of the native D2 connections using the browser's
+   animation API.
+   ---------------------------------------------------------- */
+
+.topology-redundancy-flow {
+    fill: none;
+
+    stroke: #FFD0C4;
+    stroke-width: 2.5;
+
+    vector-effect:
+        non-scaling-stroke;
+}
+
+
+/* ----------------------------------------------------------
+   LABEL
+   ---------------------------------------------------------- */
+
+.topology-redundancy-label {
+    fill: #F78C6C;
+
+    font-size: 18px;
+    font-weight: 600;
+
+    text-anchor: end;
+
+    dominant-baseline:
+        middle;
+
+    paint-order:
+        stroke;
+
+    stroke: #1E2129;
+    stroke-width: 1px;
+
+    stroke-linejoin:
+        round;
+}
+
 
 /* ----------------------------------------------------------
    REDUCED MOTION
    ---------------------------------------------------------- */
 
-@media (prefers-reduced-motion: reduce) {
+@media (
+    prefers-reduced-motion:
+    reduce
+) {
 
-    .topology-redundancy-flow {
-        animation: none;
+    :root {
+        --network-flow-speed: 0.0001;
     }
 
-}
-
-/* ==========================================================
-   NETWORK FLOW SPEEDS
-   ========================================================== */
-
-:root {
-    /*
-     * Native D2 animation speed.
-     *
-     * Bigger number = slower.
-     *
-     * Start with 3s and tune from there.
-     */
-    --d2-flow-duration: 9s;
-
-    /*
-     * Custom redundancy animation.
-     */
-    --redundancy-flow-duration: 2s;
-}
-
-
-/* ==========================================================
-   NATIVE D2 ANIMATED CONNECTIONS
-
-   IMPORTANT:
-   Explicitly exclude every path created by our custom
-   redundancy overlay.
-   ========================================================== */
-
-.network-topology-viewer .d2 svg path:not(
-    .topology-redundancy-base
-):not(
-    .topology-redundancy-flow
-):not(
-    .topology-redundancy-arrow
-) {
-    animation-duration:
-        var(--d2-flow-duration)
-        !important;
-}
-
-
-/* ==========================================================
-   REDUNDANCY FLOW
-   ========================================================== */
-
-.topology-redundancy-forward {
-    animation:
-        topology-redundancy-forward
-        var(--redundancy-flow-duration)
-        linear
-        infinite;
-}
-
-
-.topology-redundancy-reverse {
-    animation:
-        topology-redundancy-reverse
-        var(--redundancy-flow-duration)
-        linear
-        infinite;
 }
