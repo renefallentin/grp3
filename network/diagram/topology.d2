@@ -268,31 +268,31 @@ dk1: DK1 {
   # SERVERS
   # ----------------------------------------------------------
 
-  server1: SRV-01-DK1 {
+  server1: SRV-DC01 {
     class: [device; server]
 
-    tooltip: "Domain Controller\nIP: 10.10.20.10"
+    tooltip: "Domain Controller\nIP: 192.168.3.66/28\nRoller: AD DS, DNS, DHCP"
     link: ../servers/dk1-srv-01/
   }
 
-  server2: SRV-02-DK1 {
+  server2: SCCM-Server {
     class: [device; server]
 
-    tooltip: "SCCM server\nIP: 10.10.20.11"
+    tooltip: "SCCM server\nIP: 192.168.3.67/28\nRoller: SCCM/PXE-test"
     link: ../servers/dk1-srv-02/
   }
 
-  server3: SRV-03-DK1 {
+  server3: SRV-FS01 {
     class: [device; server]
 
-    tooltip: "SQL Database\nIP: 10.10.20.11"
+    tooltip: "Filserver\nIP: Statisk i VLAN60\nRoller: Filserver"
     link: ../servers/dk1-srv-03/
   }
 
-  server4: SRV-04-DK1 {
+  server4: SRV-DB01 {
     class: [device; server]
 
-    tooltip: "Backup server\nIP: 10.10.20.11"
+    tooltip: "Database server\nIP: OPDATER NÅR OPSAT"
     link: ../servers/dk1-srv-04/
   }
 
@@ -380,10 +380,10 @@ dk2: DK2 {
   # SERVER
   # ----------------------------------------------------------
 
-  server5: SRV-05-DK2 {
+  server5: SRV-DC02 {
     class: [device; server]
 
-    tooltip: "Backup server\nIP: 10.10.20.11"
+    tooltip: "Backup server\nIP: 192.168.3.194/27\nRoller: Ekstra DC, DNS, DHCP standby"
     link: ../servers/dk2-srv-05/
   }
 
@@ -454,35 +454,10 @@ dk2: DK2 {
 #
 # ============================================================
 
-internet <-> dk1.router: ISP {
+internet <-> dk1.router: 192.168.100.3  {
   class: [link; wan; flow]
 }
 
-internet <-> dk2.router: ISP {
+internet <-> dk2.router: 192.168.101.3  {
   class: [link; wan; flow]
 }
-
-
-# ============================================================
-# OPTIONAL REDUNDANCY
-#
-# Uncomment ONLY if these links exist in the real topology.
-# ============================================================
-
-
-# ------------------------------------------------------------
-# L3 SITE-TO-SITE REDUNDANCY
-# ------------------------------------------------------------
-
-# dk1.sw_l3 <-> dk2.sw_l3: Redundant L3 {
-#   class: [link; redundant; flow]
-# }
-
-
-# ------------------------------------------------------------
-# L2 BACKUP / REDUNDANT TRUNK
-# ------------------------------------------------------------
-
-# dk1.sw_l2 <-> dk2.sw_l2: Backup Trunk {
-#   class: [link; redundant; flow]
-# }

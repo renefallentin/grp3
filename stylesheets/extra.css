@@ -187,3 +187,230 @@ display: none;
 .network-topology-viewer .d2 svg.topology-dragging {
     cursor: grabbing;
 }
+
+/* ==========================================================
+   L3 REDUNDANCY OVERLAY
+   ========================================================== */
+
+
+/* ----------------------------------------------------------
+   BASE REDUNDANCY CONNECTION
+
+   This is the permanent dashed link behind the animated
+   traffic flows.
+   ---------------------------------------------------------- */
+
+.topology-redundancy-base {
+    fill: none;
+
+    stroke: #F78C6C;
+    stroke-width: 3;
+
+    stroke-dasharray: 8 5;
+
+    opacity: 0.75;
+
+    vector-effect: non-scaling-stroke;
+}
+
+
+/* ----------------------------------------------------------
+   BIDIRECTIONAL ARROWHEADS
+   ---------------------------------------------------------- */
+
+.topology-redundancy-arrow {
+    fill: #F78C6C;
+    stroke: none;
+}
+
+
+/* ----------------------------------------------------------
+   ANIMATED TRAFFIC FLOW
+
+   Two copies of the same path are used:
+
+   left lane  = DK1 -> DK2
+   right lane = DK2 -> DK1
+   ---------------------------------------------------------- */
+
+.topology-redundancy-flow {
+    fill: none;
+
+    stroke: #FFD0C4;
+    stroke-width: 2.5;
+
+    /*
+     * Small packet-like segments with a relatively
+     * large gap between them.
+     */
+    stroke-dasharray: 5 20;
+
+    stroke-linecap: round;
+
+    vector-effect: non-scaling-stroke;
+}
+
+
+/* ----------------------------------------------------------
+   DK1 -> DK2
+   ---------------------------------------------------------- */
+
+.topology-redundancy-forward {
+    animation:
+        topology-redundancy-forward
+        2s
+        linear
+        infinite;
+}
+
+
+/* ----------------------------------------------------------
+   DK2 -> DK1
+   ---------------------------------------------------------- */
+
+.topology-redundancy-reverse {
+    animation:
+        topology-redundancy-reverse
+        2s
+        linear
+        infinite;
+}
+
+
+/* ----------------------------------------------------------
+   FORWARD ANIMATION
+   ---------------------------------------------------------- */
+
+@keyframes topology-redundancy-forward {
+
+    from {
+        stroke-dashoffset: 0;
+    }
+
+    to {
+        stroke-dashoffset: -25;
+    }
+
+}
+
+
+/* ----------------------------------------------------------
+   REVERSE ANIMATION
+   ---------------------------------------------------------- */
+
+@keyframes topology-redundancy-reverse {
+
+    from {
+        stroke-dashoffset: 0;
+    }
+
+    to {
+        stroke-dashoffset: 25;
+    }
+
+}
+
+
+/* ----------------------------------------------------------
+   CONNECTION LABEL
+   ---------------------------------------------------------- */
+
+.topology-redundancy-label {
+    fill: #F78C6C;
+
+    font-size: 12px;
+    font-weight: 600;
+
+    /*
+     * The JS places the label to the left of the line.
+     */
+    text-anchor: end;
+
+    dominant-baseline: middle;
+
+    /*
+     * Dark outline keeps the text readable when other
+     * topology elements are behind it.
+     */
+    paint-order: stroke;
+
+    stroke: #1E2129;
+    stroke-width: 1px;
+    stroke-linejoin: round;
+}
+
+
+/* ----------------------------------------------------------
+   REDUCED MOTION
+   ---------------------------------------------------------- */
+
+@media (prefers-reduced-motion: reduce) {
+
+    .topology-redundancy-flow {
+        animation: none;
+    }
+
+}
+
+/* ==========================================================
+   NETWORK FLOW SPEEDS
+   ========================================================== */
+
+:root {
+    /*
+     * Native D2 animation speed.
+     *
+     * Bigger number = slower.
+     *
+     * Start with 3s and tune from there.
+     */
+    --d2-flow-duration: 9s;
+
+    /*
+     * Custom redundancy animation.
+     */
+    --redundancy-flow-duration: 2s;
+}
+
+
+/* ==========================================================
+   NATIVE D2 ANIMATED CONNECTIONS
+
+   IMPORTANT:
+   Explicitly exclude every path created by our custom
+   redundancy overlay.
+   ========================================================== */
+
+.network-topology-viewer .d2 svg path:not(
+    .topology-redundancy-base
+):not(
+    .topology-redundancy-flow
+):not(
+    .topology-redundancy-arrow
+) {
+    animation-duration:
+        var(--d2-flow-duration)
+        !important;
+}
+
+
+/* ==========================================================
+   REDUNDANCY FLOW
+   ========================================================== */
+
+.topology-redundancy-forward {
+    animation:
+        topology-redundancy-forward
+        var(--redundancy-flow-duration)
+        linear
+        infinite;
+}
+
+
+.topology-redundancy-reverse {
+    animation:
+        topology-redundancy-reverse
+        var(--redundancy-flow-duration)
+        linear
+        infinite;
+}
